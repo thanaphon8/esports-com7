@@ -60,12 +60,12 @@ const STATS = [
 ];
 
 const PLAYERS = [
-  { name: "Kaito 'Viper' Tanaka", role: "Team captain", game: "Valorant", color: "#fb2e4f" },
-  { name: "Arthit 'Nova' Suwan", role: "Entry fragger", game: "Valorant", color: "#d81e5b" },
-  { name: "Lena 'Frost' Moreau", role: "Support", game: "League of Legends", color: "#b4134a" },
-  { name: "Min-jun 'Rift' Park", role: "Mid laner", game: "League of Legends", color: "#fb2e4f" },
-  { name: "Dmitri 'Ghost' Volkov", role: "AWPer", game: "CS2", color: "#d81e5b" },
-  { name: "Sara 'Blaze' Ortiz", role: "In-game leader", game: "CS2", color: "#b4134a" },
+  { name: "Kaito 'Viper' Tanaka", role: "Team captain", game: "Valorant", color: "#2bff88" },
+  { name: "Arthit 'Nova' Suwan", role: "Entry fragger", game: "Valorant", color: "#ff2a55" },
+  { name: "Lena 'Frost' Moreau", role: "Support", game: "League of Legends", color: "#19e6a0" },
+  { name: "Min-jun 'Rift' Park", role: "Mid laner", game: "League of Legends", color: "#2bff88" },
+  { name: "Dmitri 'Ghost' Volkov", role: "AWPer", game: "CS2", color: "#ff2a55" },
+  { name: "Sara 'Blaze' Ortiz", role: "In-game leader", game: "CS2", color: "#19e6a0" },
 ];
 
 const MATCHES = [
@@ -119,12 +119,12 @@ function Logo() {
       <svg width="40" height="44" viewBox="0 0 40 44" aria-hidden="true">
         <path
           d="M20 1 38 11v22L20 43 2 33V11z"
-          fill="#0b0f1a"
-          stroke="#fff"
+          fill="#0a1014"
+          stroke="#2bff88"
           strokeWidth="1.5"
         />
-        <path d="M11 30 14 14l6 6 6-6 3 16-9-5z" fill="#fb2e4f" />
-        <path d="M16 22l4 3 4-3" stroke="#0b0f1a" strokeWidth="1.5" fill="none" />
+        <path d="M11 30 14 14l6 6 6-6 3 16-9-5z" fill="#ff2a55" />
+        <path d="M16 22l4 3 4-3" stroke="#0a1014" strokeWidth="1.5" fill="none" />
       </svg>
       <span className="font-[family-name:var(--font-display)] text-xl font-bold tracking-wide text-white">
         ESPORTS
@@ -135,22 +135,32 @@ function Logo() {
 
 function Button({
   children,
-  href = "#",
+  href,
+  onClick,
   variant = "solid",
 }: {
   children: React.ReactNode;
   href?: string;
+  onClick?: () => void;
   variant?: "solid" | "outline";
 }) {
   const base =
-    "inline-flex items-center justify-center px-6 py-3.5 font-[family-name:var(--font-display)] text-xs font-semibold uppercase tracking-wider transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white";
+    "inline-flex -skew-x-12 items-center justify-center px-7 py-3.5 font-[family-name:var(--font-display)] text-xs font-bold uppercase tracking-wider transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white";
   const styles =
     variant === "solid"
-      ? "bg-[#fb2e4f] text-white hover:bg-[#e01f40]"
-      : "border border-white/30 text-white hover:border-[#fb2e4f] hover:text-[#fb2e4f]";
+      ? "bg-[#2bff88] text-[#04110a] shadow-[0_0_22px_rgba(43,255,136,0.45)] hover:bg-[#6bffaa] hover:shadow-[0_0_34px_rgba(43,255,136,0.7)]"
+      : "border border-white/30 text-white hover:border-[#2bff88] hover:text-[#2bff88] hover:shadow-[0_0_18px_rgba(43,255,136,0.3)]";
+  const inner = <span className="inline-block skew-x-12">{children}</span>;
+  if (onClick) {
+    return (
+      <button type="button" onClick={onClick} className={`${base} ${styles}`}>
+        {inner}
+      </button>
+    );
+  }
   return (
-    <a href={href} className={`${base} ${styles}`}>
-      {children}
+    <a href={href ?? "#"} className={`${base} ${styles}`}>
+      {inner}
     </a>
   );
 }
@@ -167,10 +177,11 @@ function SectionHead({
   return (
     <div className="mb-12 flex flex-wrap items-end justify-between gap-6">
       <div className="max-w-xl">
+        <span className="mb-5 block h-1.5 w-16 -skew-x-12 bg-[#2bff88] shadow-[0_0_14px_#2bff88]" />
         <h2 className="font-[family-name:var(--font-display)] text-3xl font-bold uppercase leading-tight text-white sm:text-4xl">
           {title}
         </h2>
-        {intro && <p className="mt-4 text-lg text-[#9aa3b8]">{intro}</p>}
+        {intro && <p className="mt-4 text-lg text-[#8fa6a1]">{intro}</p>}
       </div>
       {action}
     </div>
@@ -180,7 +191,7 @@ function SectionHead({
 /** แผงรูปโทนแดงทางขวาของ hero */
 function HeroVisual({ image, index }: { image: string; index: number }) {
   return (
-    <div className="absolute inset-0 overflow-hidden bg-[#fb2e4f]">
+    <div className="absolute inset-0 overflow-hidden bg-[#ff2a55]">
       {image ? (
         // eslint-disable-next-line @next/next/no-img-element
         <img
@@ -190,7 +201,7 @@ function HeroVisual({ image, index }: { image: string; index: number }) {
         />
       ) : (
         <>
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,#ff6a82_0%,#fb2e4f_35%,#4a0d1b_100%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,#ff6b8a_0%,#ff2a55_35%,#3d0612_100%)]" />
           <svg
             className="absolute inset-0 h-full w-full opacity-30"
             viewBox="0 0 400 500"
@@ -204,20 +215,20 @@ function HeroVisual({ image, index }: { image: string; index: number }) {
                   d="M0-30 26-15v30L0 30-26 15v-30z"
                   transform={`translate(${c * 78 + (r % 2) * 39} ${r * 68})`}
                   fill="none"
-                  stroke="#0b0f1a"
+                  stroke="#0a1014"
                   strokeWidth="1.5"
                 />
               ))
             )}
           </svg>
           <div className="absolute inset-0 flex items-center justify-center">
-            <span className="select-none font-[family-name:var(--font-display)] text-[9rem] font-bold leading-none text-[#0b0f1a]/40 sm:text-[12rem]">
+            <span className="select-none font-[family-name:var(--font-display)] text-[9rem] font-bold leading-none text-[#0a1014]/40 sm:text-[12rem]">
               {["VR", "GG", "01"][index % 3]}
             </span>
           </div>
         </>
       )}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#070a12] via-transparent to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#05080a] via-transparent to-transparent" />
     </div>
   );
 }
@@ -286,7 +297,7 @@ const fmt = (n: number) => n.toLocaleString("en-US");
 function avatarColor(name: string) {
   let h = 0;
   for (let i = 0; i < name.length; i++) h = (h * 31 + name.charCodeAt(i)) % 997;
-  const colors = ["#fb2e4f", "#d81e5b", "#b4134a", "#8b1d6b", "#6d28d9", "#be123c"];
+  const colors = ["#2bff88", "#ff2a55", "#19e6a0", "#ff5c7c", "#7dff4f", "#ff4f6d"];
   return colors[h % colors.length];
 }
 
@@ -294,22 +305,19 @@ function Avatar({ name, size = 40, dark = false }: { name: string; size?: number
   return (
     <span
       className={`inline-flex shrink-0 items-center justify-center rounded-full font-[family-name:var(--font-display)] font-bold uppercase ${
-        dark ? "border-2 border-white" : ""
+        dark ? "border-2 border-white text-white" : "text-[#04110a]"
       }`}
       style={{
         width: size,
         height: size,
         fontSize: size * 0.42,
-        background: dark ? "#070a12" : avatarColor(name),
+        background: dark ? "#05080a" : avatarColor(name),
       }}
     >
       {name.charAt(0)}
     </span>
   );
 }
-
-const solidBtn =
-  "inline-flex items-center justify-center bg-[#fb2e4f] px-6 py-3.5 font-[family-name:var(--font-display)] text-xs font-semibold uppercase tracking-wider text-white transition-colors hover:bg-[#e01f40] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white";
 
 function PodiumCard({
   p,
@@ -330,12 +338,12 @@ function PodiumCard({
   return (
     <div
       className={`relative flex flex-col items-center justify-center px-6 py-10 text-center ${height} ${order} ${
-        first ? "bg-[#fb2e4f]" : "border border-white/10 bg-[#070a12]"
+        first ? "bg-[#ff2a55] shadow-[0_0_60px_rgba(255,42,85,0.5)]" : "border border-[#2bff88]/25 bg-[#05080a]"
       } ${me ? "outline outline-2 outline-offset-4 outline-white" : ""}`}
     >
       <div
         className={`absolute left-0 top-0 flex h-12 w-12 items-center justify-center font-[family-name:var(--font-display)] text-2xl font-bold ${
-          first ? "bg-[#070a12] text-white" : "bg-[#fb2e4f] text-white"
+          first ? "bg-[#05080a] text-white" : "bg-[#2bff88] text-[#04110a]"
         }`}
       >
         {rank}
@@ -347,11 +355,11 @@ function PodiumCard({
       )}
       <Avatar name={p.name} size={first ? 88 : 72} dark={first} />
       <h3 className="mt-4 font-[family-name:var(--font-display)] text-2xl font-bold">{p.name}</h3>
-      <p className={first ? "text-white/80" : "text-[#9aa3b8]"}>{p.country}</p>
+      <p className={first ? "text-white/80" : "text-[#8fa6a1]"}>{p.country}</p>
       <div className="mt-4 font-[family-name:var(--font-display)] text-4xl font-bold">
         {fmt(value)}
       </div>
-      <div className={`text-sm ${first ? "text-white/80" : "text-[#9aa3b8]"}`}>{unit}</div>
+      <div className={`text-sm ${first ? "text-white/80" : "text-[#8fa6a1]"}`}>{unit}</div>
     </div>
   );
 }
@@ -382,21 +390,21 @@ function Leaderboard({
   const renderRow = (p: Player, rank: number) => (
     <div
       className={`grid grid-cols-[48px_1fr_auto] items-center gap-4 border-l-4 px-4 py-4 md:grid-cols-[64px_1fr_100px_100px_140px] ${
-        isMe(p.name) ? "border-[#fb2e4f] bg-[#fb2e4f]/15" : "border-transparent hover:bg-white/[0.03]"
+        isMe(p.name) ? "border-[#2bff88] bg-[#2bff88]/15" : "border-transparent hover:bg-white/[0.03]"
       }`}
     >
-      <span className="font-[family-name:var(--font-display)] text-xl font-bold text-[#9aa3b8]">
+      <span className="font-[family-name:var(--font-display)] text-xl font-bold text-[#8fa6a1]">
         {rank}
       </span>
       <span className="flex items-center gap-3">
         <Avatar name={p.name} />
         <span className="font-[family-name:var(--font-display)] text-lg font-semibold">
           {p.name}
-          {isMe(p.name) && <span className="ml-2 text-sm text-[#fb2e4f]">You</span>}
+          {isMe(p.name) && <span className="ml-2 text-sm text-[#2bff88]">You</span>}
         </span>
       </span>
-      <span className="hidden text-[#9aa3b8] md:block">{p.country}</span>
-      <span className="hidden text-[#9aa3b8] md:block">{p.plays}</span>
+      <span className="hidden text-[#8fa6a1] md:block">{p.country}</span>
+      <span className="hidden text-[#8fa6a1] md:block">{p.plays}</span>
       <span className="text-right font-[family-name:var(--font-display)] text-xl font-bold">
         {fmt(p[tab])}
       </span>
@@ -415,8 +423,8 @@ function Leaderboard({
             onClick={() => onTab(t.key)}
             className={`px-5 py-3 font-[family-name:var(--font-display)] text-xs font-semibold uppercase tracking-wider transition-colors ${
               tab === t.key
-                ? "bg-[#fb2e4f] text-white"
-                : "border border-white/20 text-white hover:border-[#fb2e4f]"
+                ? "bg-[#2bff88] text-[#04110a] shadow-[0_0_18px_rgba(43,255,136,0.4)]"
+                : "border border-white/20 text-white hover:border-[#2bff88]"
             }`}
           >
             {t.label}
@@ -425,7 +433,7 @@ function Leaderboard({
       </div>
 
       {ranked.length === 0 ? (
-        <p className="border border-white/10 p-10 text-center text-[#9aa3b8]">
+        <p className="border border-white/10 p-10 text-center text-[#8fa6a1]">
           No scores yet. Play a game below to be the first on the board.
         </p>
       ) : (
@@ -439,8 +447,8 @@ function Leaderboard({
 
           {/* rank 4+ */}
           {rest.length > 0 && (
-            <div className="mt-10 border border-white/10 bg-[#070a12]">
-              <div className="hidden grid-cols-[64px_1fr_100px_100px_140px] gap-4 border-b border-white/10 px-4 py-3 pl-5 text-sm text-[#9aa3b8] md:grid">
+            <div className="mt-10 border border-white/10 bg-[#05080a]">
+              <div className="hidden grid-cols-[64px_1fr_100px_100px_140px] gap-4 border-b border-white/10 px-4 py-3 pl-5 text-sm text-[#8fa6a1] md:grid">
                 <span>Rank</span>
                 <span>Player</span>
                 <span>Country</span>
@@ -453,7 +461,7 @@ function Leaderboard({
                 ))}
                 {meIdx >= 10 && (
                   <>
-                    <div className="px-4 py-2 text-center text-[#9aa3b8]">...</div>
+                    <div className="px-4 py-2 text-center text-[#8fa6a1]">...</div>
                     {renderRow(ranked[meIdx], meIdx + 1)}
                   </>
                 )}
@@ -468,8 +476,8 @@ function Leaderboard({
 
 function HudStat({ label, value }: { label: string; value: string | number }) {
   return (
-    <div className="flex-1 border border-white/10 bg-[#0b0f1a] px-4 py-3">
-      <div className="text-sm text-[#9aa3b8]">{label}</div>
+    <div className="flex-1 border border-white/10 bg-[#0a1014] px-4 py-3">
+      <div className="text-sm text-[#8fa6a1]">{label}</div>
       <div className="font-[family-name:var(--font-display)] text-2xl font-bold">{value}</div>
     </div>
   );
@@ -545,13 +553,13 @@ function AimTrainer({ onFinish }: { onFinish: (score: number) => void }) {
       </div>
       <div
         onClick={miss}
-        className="relative h-[380px] cursor-crosshair select-none overflow-hidden border border-white/10 bg-[#0b0f1a] bg-[radial-gradient(circle_at_center,#141a2b_0%,#0b0f1a_70%)]"
+        className="relative h-[380px] cursor-crosshair select-none overflow-hidden border border-white/10 bg-[#0a1014] bg-[radial-gradient(circle_at_center,#101a1f_0%,#0a1014_70%)]"
       >
         {phase === "playing" && (
           <button
             onClick={hit}
             aria-label="Target"
-            className="absolute flex h-14 w-14 items-center justify-center rounded-full bg-[#fb2e4f] shadow-[0_0_0_6px_rgba(251,46,79,0.25)] transition-transform hover:scale-110 active:scale-90"
+            className="absolute flex h-14 w-14 items-center justify-center rounded-full bg-[#ff2a55] shadow-[0_0_0_6px_rgba(255,42,85,0.25),0_0_28px_rgba(255,42,85,0.8)] transition-transform hover:scale-110 active:scale-90"
             style={{ left: `${pos.x}%`, top: `${pos.y}%`, transform: "translate(-50%, -50%)" }}
           >
             <span className="h-6 w-6 rounded-full border-4 border-white" />
@@ -560,38 +568,31 @@ function AimTrainer({ onFinish }: { onFinish: (score: number) => void }) {
         )}
 
         {phase !== "playing" && (
-          <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#070a12]/90 p-6 text-center">
+          <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#05080a]/90 p-6 text-center">
             {phase === "idle" ? (
               <>
                 <h3 className="font-[family-name:var(--font-display)] text-3xl font-bold uppercase">
                   Aim Trainer
                 </h3>
-                <p className="mt-3 max-w-sm text-[#9aa3b8]">
+                <p className="mt-3 max-w-sm text-[#8fa6a1]">
                   Click the targets as fast as you can. You have {DURATION} seconds.
                 </p>
               </>
             ) : (
               <>
-                <div className="text-[#9aa3b8]">Final score</div>
-                <div className="font-[family-name:var(--font-display)] text-6xl font-bold text-[#fb2e4f]">
+                <div className="text-[#8fa6a1]">Final score</div>
+                <div className="font-[family-name:var(--font-display)] text-6xl font-bold text-[#2bff88] [text-shadow:0_0_24px_rgba(43,255,136,0.6)]">
                   {score}
                 </div>
-                <p className="mt-2 text-[#9aa3b8]">
+                <p className="mt-2 text-[#8fa6a1]">
                   {hits} hits, {misses} misses, {accuracy}% accuracy
                 </p>
               </>
             )}
             <div className="mt-8 flex flex-wrap justify-center gap-3">
-              <button onClick={start} className={solidBtn}>
-                {phase === "idle" ? "Start game" : "Play again"}
-              </button>
+              <Button onClick={start}>{phase === "idle" ? "Start game" : "Play again"}</Button>
               {phase === "done" && (
-                <a
-                  href="#ranking"
-                  className="inline-flex items-center justify-center border border-white/30 px-6 py-3.5 font-[family-name:var(--font-display)] text-xs font-semibold uppercase tracking-wider hover:border-[#fb2e4f] hover:text-[#fb2e4f]"
-                >
-                  View ranking
-                </a>
+                <Button href="#ranking" variant="outline">View ranking</Button>
               )}
             </div>
           </div>
@@ -679,7 +680,7 @@ function MemoryMatch({ onFinish }: { onFinish: (score: number) => void }) {
         <HudStat label="Moves" value={moves} />
         <HudStat label="Pairs" value={`${pairs}/8`} />
       </div>
-      <div className="relative flex h-[380px] items-center justify-center overflow-hidden border border-white/10 bg-[#0b0f1a] p-4">
+      <div className="relative flex h-[380px] items-center justify-center overflow-hidden border border-white/10 bg-[#0a1014] p-4">
         {cards.length > 0 && (
           <div className="grid h-full max-h-[350px] grid-cols-4 gap-2 sm:gap-3" style={{ aspectRatio: "1 / 1" }}>
             {cards.map((c, i) => (
@@ -689,10 +690,10 @@ function MemoryMatch({ onFinish }: { onFinish: (score: number) => void }) {
                 aria-label={c.open || c.done ? c.sym : "Hidden card"}
                 className={`flex items-center justify-center text-3xl transition-colors sm:text-4xl ${
                   c.done
-                    ? "bg-[#fb2e4f]/25 ring-1 ring-[#fb2e4f]"
+                    ? "bg-[#2bff88]/25 ring-1 ring-[#2bff88]"
                     : c.open
-                    ? "bg-[#fb2e4f]"
-                    : "bg-[#141a2b] hover:bg-[#1c2438]"
+                    ? "bg-[#ff2a55]"
+                    : "bg-[#101a1f] hover:bg-[#17252c]"
                 }`}
               >
                 {c.open || c.done ? (
@@ -706,38 +707,31 @@ function MemoryMatch({ onFinish }: { onFinish: (score: number) => void }) {
         )}
 
         {phase !== "playing" && (
-          <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#070a12]/90 p-6 text-center">
+          <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#05080a]/90 p-6 text-center">
             {phase === "idle" ? (
               <>
                 <h3 className="font-[family-name:var(--font-display)] text-3xl font-bold uppercase">
                   Memory Match
                 </h3>
-                <p className="mt-3 max-w-sm text-[#9aa3b8]">
+                <p className="mt-3 max-w-sm text-[#8fa6a1]">
                   Find all 8 pairs with as few moves and as little time as possible.
                 </p>
               </>
             ) : (
               <>
-                <div className="text-[#9aa3b8]">Final score</div>
-                <div className="font-[family-name:var(--font-display)] text-6xl font-bold text-[#fb2e4f]">
+                <div className="text-[#8fa6a1]">Final score</div>
+                <div className="font-[family-name:var(--font-display)] text-6xl font-bold text-[#2bff88] [text-shadow:0_0_24px_rgba(43,255,136,0.6)]">
                   {score}
                 </div>
-                <p className="mt-2 text-[#9aa3b8]">
+                <p className="mt-2 text-[#8fa6a1]">
                   Finished in {moves} moves and {time} seconds
                 </p>
               </>
             )}
             <div className="mt-8 flex flex-wrap justify-center gap-3">
-              <button onClick={start} className={solidBtn}>
-                {phase === "idle" ? "Start game" : "Play again"}
-              </button>
+              <Button onClick={start}>{phase === "idle" ? "Start game" : "Play again"}</Button>
               {phase === "done" && (
-                <a
-                  href="#ranking"
-                  className="inline-flex items-center justify-center border border-white/30 px-6 py-3.5 font-[family-name:var(--font-display)] text-xs font-semibold uppercase tracking-wider hover:border-[#fb2e4f] hover:text-[#fb2e4f]"
-                >
-                  View ranking
-                </a>
+                <Button href="#ranking" variant="outline">View ranking</Button>
               )}
             </div>
           </div>
@@ -776,9 +770,9 @@ function PlayZone({
             maxLength={16}
             onChange={(e) => onNick(e.target.value)}
             placeholder="Guest"
-            className="h-12 w-full border border-white/20 bg-[#0b0f1a] px-4 text-white placeholder:text-white/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#fb2e4f]"
+            className="h-12 w-full border border-white/20 bg-[#0a1014] px-4 text-white placeholder:text-white/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#2bff88]"
           />
-          <p className="mt-2 text-sm text-[#9aa3b8]">
+          <p className="mt-2 text-sm text-[#8fa6a1]">
             Scores are saved under this name. Use the same name to keep adding points.
           </p>
         </div>
@@ -791,8 +785,8 @@ function PlayZone({
               aria-pressed={game === k}
               className={`p-4 text-left transition-colors ${
                 game === k
-                  ? "bg-[#fb2e4f]"
-                  : "border border-white/15 bg-[#0b0f1a] hover:border-[#fb2e4f]"
+                  ? "bg-[#2bff88] text-[#04110a]"
+                  : "border border-white/15 bg-[#0a1014] hover:border-[#2bff88]"
               }`}
             >
               <div className="font-[family-name:var(--font-display)] text-lg font-semibold">
@@ -802,13 +796,13 @@ function PlayZone({
           ))}
         </div>
 
-        <div className="border border-white/10 bg-[#0b0f1a] p-6">
+        <div className="border border-white/10 bg-[#0a1014] p-6">
           <h3 className="font-[family-name:var(--font-display)] text-xl font-semibold">{g.name}</h3>
-          <p className="mt-2 text-[#9aa3b8]">{g.desc}</p>
+          <p className="mt-2 text-[#8fa6a1]">{g.desc}</p>
           <ul className="mt-4 space-y-2">
             {g.rules.map((r) => (
               <li key={r} className="flex items-start gap-3">
-                <span className="mt-2 h-2 w-2 shrink-0 bg-[#fb2e4f]" />
+                <span className="mt-2 h-2 w-2 shrink-0 bg-[#2bff88]" />
                 <span>{r}</span>
               </li>
             ))}
@@ -816,14 +810,14 @@ function PlayZone({
         </div>
 
         {result && (
-          <div className="border-l-4 border-[#fb2e4f] bg-[#fb2e4f]/10 p-6" role="status">
+          <div className="border-l-4 border-[#2bff88] bg-[#2bff88]/10 p-6" role="status">
             <div className="font-[family-name:var(--font-display)] text-xl font-semibold">
               {result.name} scored {fmt(result.score)} in {GAMES[result.game].name}
             </div>
-            <p className="mt-2 text-[#9aa3b8]">
+            <p className="mt-2 text-[#8fa6a1]">
               You are now #{result.rank} on the overall ranking.
             </p>
-            <a href="#ranking" className="mt-3 inline-block font-semibold text-[#fb2e4f] hover:underline">
+            <a href="#ranking" className="mt-3 inline-block font-semibold text-[#2bff88] hover:underline">
               View ranking
             </a>
           </div>
@@ -901,8 +895,14 @@ export default function Home() {
 
   return (
     <div
-      className={`${display.variable} ${body.variable} min-h-screen bg-[#070a12] font-[family-name:var(--font-body)] text-white antialiased`}
+      className={`${display.variable} ${body.variable} min-h-screen bg-[#05080a] bg-[linear-gradient(rgba(43,255,136,0.045)_1px,transparent_1px),linear-gradient(90deg,rgba(43,255,136,0.045)_1px,transparent_1px)] bg-[size:56px_56px] font-[family-name:var(--font-body)] text-white antialiased`}
     >
+      <style>{`
+        @keyframes neon-marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+        .neon-marquee { animation: neon-marquee 30s linear infinite; }
+        @media (prefers-reduced-motion: reduce) { .neon-marquee { animation: none; } }
+      `}</style>
+
       {/* ---------------- HEADER ---------------- */}
       <header className="relative z-30 mx-auto flex h-[74px] max-w-[1320px] items-center justify-between px-6">
         <Logo />
@@ -912,7 +912,7 @@ export default function Home() {
             <a
               key={n}
               href={`#${n.toLowerCase()}`}
-              className="font-[family-name:var(--font-display)] text-xs font-medium uppercase tracking-wider text-white transition-colors hover:text-[#fb2e4f]"
+              className="font-[family-name:var(--font-display)] text-xs font-medium uppercase tracking-wider text-white transition-colors hover:text-[#2bff88]"
             >
               {n}
             </a>
@@ -922,7 +922,7 @@ export default function Home() {
         <div className="hidden items-center gap-8 lg:flex">
           <a
             href="#shop"
-            className="font-[family-name:var(--font-display)] text-xs font-medium uppercase tracking-wider hover:text-[#fb2e4f]"
+            className="font-[family-name:var(--font-display)] text-xs font-medium uppercase tracking-wider hover:text-[#2bff88]"
           >
             Cart(3)
           </a>
@@ -941,7 +941,7 @@ export default function Home() {
         </button>
 
         {menu && (
-          <div className="absolute left-0 right-0 top-[74px] border-t border-white/10 bg-[#0b0f1a] px-6 py-6 lg:hidden">
+          <div className="absolute left-0 right-0 top-[74px] border-t border-white/10 bg-[#0a1014] px-6 py-6 lg:hidden">
             <div className="flex flex-col gap-4">
               {NAV.map((n) => (
                 <a
@@ -960,8 +960,14 @@ export default function Home() {
       </header>
 
       {/* ---------------- HERO ---------------- */}
-      <section id="home" className="relative min-h-[620px] lg:min-h-[640px]">
-        <div className="absolute inset-y-0 right-0 top-0 w-full lg:top-[0px] lg:w-[57%]">
+      <section
+        id="home"
+        className="relative min-h-[620px] bg-[radial-gradient(circle_at_0%_100%,rgba(43,255,136,0.16),transparent_45%)] lg:min-h-[640px]"
+      >
+        <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-[calc(57%+10px)] [filter:drop-shadow(0_0_14px_rgba(43,255,136,0.9))] lg:block">
+          <div className="h-full w-full bg-[#2bff88] [clip-path:polygon(10%_0,100%_0,100%_100%,0_100%)]" />
+        </div>
+        <div className="absolute inset-y-0 right-0 w-full lg:w-[57%] lg:[clip-path:polygon(10%_0,100%_0,100%_100%,0_100%)]">
           <div key={slide} className="absolute inset-0 opacity-40 lg:opacity-100">
             <HeroVisual image={s.image} index={slide} />
           </div>
@@ -985,7 +991,7 @@ export default function Home() {
         <button
           onClick={prev}
           aria-label="Previous slide"
-          className="absolute left-0 top-1/2 z-20 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white text-[#0b0f1a] shadow-lg hover:bg-[#fb2e4f] hover:text-white sm:left-0"
+          className="absolute left-0 top-1/2 z-20 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white text-[#0a1014] shadow-lg hover:bg-[#2bff88] hover:text-[#04110a] sm:left-0"
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M19 12H5m6-6-6 6 6 6" />
@@ -994,7 +1000,7 @@ export default function Home() {
         <button
           onClick={next}
           aria-label="Next slide"
-          className="absolute right-0 top-1/2 z-20 flex h-12 w-12 -translate-y-1/2 translate-x-1/2 items-center justify-center rounded-full bg-white text-[#0b0f1a] shadow-lg hover:bg-[#fb2e4f] hover:text-white"
+          className="absolute right-0 top-1/2 z-20 flex h-12 w-12 -translate-y-1/2 translate-x-1/2 items-center justify-center rounded-full bg-white text-[#0a1014] shadow-lg hover:bg-[#2bff88] hover:text-[#04110a]"
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M5 12h14m-6-6 6 6-6 6" />
@@ -1009,22 +1015,44 @@ export default function Home() {
               onClick={() => setSlide(i)}
               aria-label={`Go to slide ${i + 1}`}
               className={`h-1.5 transition-all ${
-                i === slide ? "w-8 bg-[#fb2e4f]" : "w-4 bg-white/30"
+                i === slide ? "w-8 bg-[#2bff88]" : "w-4 bg-white/30"
               }`}
             />
           ))}
         </div>
       </section>
 
+      {/* ---------------- TICKER ---------------- */}
+      <div className="overflow-hidden border-y border-[#2bff88] bg-[#2bff88] py-3 text-[#04110a]" aria-hidden="true">
+        <div className="neon-marquee flex w-max items-center font-[family-name:var(--font-display)] text-lg font-bold uppercase italic tracking-wider">
+          {[0, 1].map((k) => (
+            <div key={k} className="flex shrink-0 items-center">
+              {[
+                "Dragon Esports",
+                "Pacific Cup champions",
+                "Live every weekend",
+                "Play. Score. Rank up.",
+                "Join the army",
+              ].map((t) => (
+                <span key={t} className="flex items-center">
+                  <span className="px-6">{t}</span>
+                  <span className="h-2.5 w-2.5 rotate-45 bg-[#04110a]" />
+                </span>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* ---------------- STATS ---------------- */}
-      <section className="border-y border-white/10 bg-[#0b0f1a]">
+      <section className="border-y border-white/10 bg-[#0a1014]">
         <div className="mx-auto grid max-w-[1320px] grid-cols-2 gap-y-8 px-6 py-12 lg:grid-cols-4">
           {STATS.map((st) => (
             <div key={st.label} className="text-center">
-              <div className="font-[family-name:var(--font-display)] text-5xl font-bold text-[#fb2e4f]">
+              <div className="font-[family-name:var(--font-display)] text-5xl font-bold text-[#2bff88] [text-shadow:0_0_22px_rgba(43,255,136,0.55)]">
                 {st.value}
               </div>
-              <div className="mt-2 text-[#9aa3b8]">{st.label}</div>
+              <div className="mt-2 text-[#8fa6a1]">{st.label}</div>
             </div>
           ))}
         </div>
@@ -1033,16 +1061,16 @@ export default function Home() {
       {/* ---------------- ABOUT ---------------- */}
       <section id="about" className="mx-auto max-w-[1320px] px-6 py-24">
         <div className="grid items-center gap-16 lg:grid-cols-2">
-          <div className="relative aspect-[4/3] overflow-hidden bg-[#fb2e4f]">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,#ff6a82,#fb2e4f_40%,#3a0b16)]" />
-            <div className="absolute inset-0 flex items-center justify-center font-[family-name:var(--font-display)] text-[10rem] font-bold text-[#0b0f1a]/40">
+          <div className="relative aspect-[4/3] overflow-hidden bg-[#ff2a55] shadow-[12px_12px_0_0_#2bff88]">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,#ff6b8a,#ff2a55_40%,#2e0610)]" />
+            <div className="absolute inset-0 flex items-center justify-center font-[family-name:var(--font-display)] text-[10rem] font-bold text-[#0a1014]/40">
               DE
             </div>
-            <div className="absolute bottom-0 left-0 bg-[#070a12] px-8 py-6">
+            <div className="absolute bottom-0 left-0 bg-[#05080a] px-8 py-6">
               <div className="font-[family-name:var(--font-display)] text-4xl font-bold">
                 Since 2018
               </div>
-              <div className="text-[#9aa3b8]">Competing worldwide</div>
+              <div className="text-[#8fa6a1]">Competing worldwide</div>
             </div>
           </div>
 
@@ -1050,7 +1078,7 @@ export default function Home() {
             <h2 className="font-[family-name:var(--font-display)] text-3xl font-bold uppercase leading-tight sm:text-4xl">
               We play to win, together
             </h2>
-            <p className="mt-6 text-lg leading-relaxed text-[#9aa3b8]">
+            <p className="mt-6 text-lg leading-relaxed text-[#8fa6a1]">
               Dragon Esports is a professional organisation with squads in nine
               titles. We build teams around discipline, communication and a
               love for the game, and we bring our fans along for every match.
@@ -1062,7 +1090,7 @@ export default function Home() {
                 "Open academy for upcoming talent",
               ].map((t) => (
                 <li key={t} className="flex items-start gap-3">
-                  <span className="mt-1.5 h-3 w-3 shrink-0 bg-[#fb2e4f]" />
+                  <span className="mt-1.5 h-3 w-3 shrink-0 bg-[#2bff88]" />
                   <span className="text-lg">{t}</span>
                 </li>
               ))}
@@ -1075,7 +1103,7 @@ export default function Home() {
       </section>
 
       {/* ---------------- TEAM ---------------- */}
-      <section id="team" className="bg-[#0b0f1a] py-24">
+      <section id="team" className="bg-[#0a1014] py-24">
         <div className="mx-auto max-w-[1320px] px-6">
           <SectionHead
             title="Our players"
@@ -1086,18 +1114,18 @@ export default function Home() {
             {PLAYERS.map((p) => (
               <article
                 key={p.name}
-                className="group border border-white/10 bg-[#070a12] transition-colors hover:border-[#fb2e4f]"
+                className="group border border-white/10 bg-[#05080a] transition-all hover:border-[#2bff88] hover:shadow-[0_0_28px_rgba(43,255,136,0.25)]"
               >
                 <div
                   className="relative flex h-64 items-end overflow-hidden"
                   style={{
-                    background: `linear-gradient(160deg, ${p.color}, #1a0710 90%)`,
+                    background: `linear-gradient(160deg, ${p.color}, #05080a 90%)`,
                   }}
                 >
                   <span className="absolute -right-4 top-0 font-[family-name:var(--font-display)] text-[10rem] font-bold leading-none text-black/25">
                     {p.name.charAt(0)}
                   </span>
-                  <span className="relative m-4 bg-[#070a12] px-3 py-1 text-sm font-medium">
+                  <span className="relative m-4 bg-[#05080a] px-3 py-1 text-sm font-medium">
                     {p.game}
                   </span>
                 </div>
@@ -1105,7 +1133,7 @@ export default function Home() {
                   <h3 className="font-[family-name:var(--font-display)] text-xl font-semibold">
                     {p.name}
                   </h3>
-                  <p className="mt-1 text-[#9aa3b8]">{p.role}</p>
+                  <p className="mt-1 text-[#8fa6a1]">{p.role}</p>
                 </div>
               </article>
             ))}
@@ -1130,12 +1158,12 @@ export default function Home() {
                 <div className="font-[family-name:var(--font-display)] text-2xl font-bold">
                   {m.date}
                 </div>
-                <div className="text-[#9aa3b8]">{m.time}</div>
+                <div className="text-[#8fa6a1]">{m.time}</div>
               </div>
               <div className="font-[family-name:var(--font-display)] text-xl font-semibold">
-                Dragon <span className="text-[#fb2e4f]">vs</span> {m.vs}
+                Dragon <span className="text-[#ff2a55]">vs</span> {m.vs}
               </div>
-              <div className="text-[#9aa3b8]">
+              <div className="text-[#8fa6a1]">
                 {m.game} · {m.event}
               </div>
               <Button variant="outline">Watch live</Button>
@@ -1145,7 +1173,7 @@ export default function Home() {
       </section>
 
       {/* ---------------- RANKING ---------------- */}
-      <section id="ranking" className="bg-[#0b0f1a] py-24">
+      <section id="ranking" className="bg-[#0a1014] py-24">
         <div className="mx-auto max-w-[1320px] px-6">
           <SectionHead
             title="Player ranking"
@@ -1178,7 +1206,7 @@ export default function Home() {
       </section>
 
       {/* ---------------- ACHIEVEMENTS ---------------- */}
-      <section id="achievements" className="bg-[#0b0f1a] py-24">
+      <section id="achievements" className="bg-[#0a1014] py-24">
         <div className="mx-auto max-w-[1320px] px-6">
           <SectionHead
             title="Achievements"
@@ -1188,15 +1216,15 @@ export default function Home() {
             {ACHIEVEMENTS.map((a) => (
               <div
                 key={a.title}
-                className="border-l-4 border-[#fb2e4f] bg-[#070a12] p-8"
+                className="border-l-4 border-[#ff2a55] bg-[#05080a] p-8"
               >
-                <div className="text-[#9aa3b8]">{a.year}</div>
+                <div className="text-[#8fa6a1]">{a.year}</div>
                 <h3 className="mt-2 font-[family-name:var(--font-display)] text-2xl font-semibold">
                   {a.title}
                 </h3>
                 <div className="mt-6 flex items-end justify-between">
                   <span className="font-medium">{a.place}</span>
-                  <span className="font-[family-name:var(--font-display)] text-xl font-bold text-[#fb2e4f]">
+                  <span className="font-[family-name:var(--font-display)] text-xl font-bold text-[#2bff88]">
                     {a.prize}
                   </span>
                 </div>
@@ -1213,7 +1241,7 @@ export default function Home() {
           {PARTNERS.map((p) => (
             <div
               key={p}
-              className="flex h-28 items-center justify-center bg-[#070a12] font-[family-name:var(--font-display)] text-xl font-bold tracking-widest text-white/50 transition-colors hover:text-[#fb2e4f]"
+              className="flex h-28 items-center justify-center bg-[#05080a] font-[family-name:var(--font-display)] text-xl font-bold tracking-widest text-white/50 transition-colors hover:text-[#2bff88]"
             >
               {p}
             </div>
@@ -1222,7 +1250,7 @@ export default function Home() {
       </section>
 
       {/* ---------------- SHOP ---------------- */}
-      <section id="shop" className="bg-[#0b0f1a] py-24">
+      <section id="shop" className="bg-[#0a1014] py-24">
         <div className="mx-auto max-w-[1320px] px-6">
           <SectionHead
             title="Team merch"
@@ -1232,9 +1260,9 @@ export default function Home() {
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {PRODUCTS.map((p, i) => (
               <article key={p.name} className="group">
-                <div className="relative flex h-72 items-center justify-center overflow-hidden bg-[#141a2b]">
+                <div className="relative flex h-72 items-center justify-center overflow-hidden bg-[#101a1f]">
                   {p.tag && (
-                    <span className="absolute left-4 top-4 bg-[#fb2e4f] px-3 py-1 text-xs font-semibold uppercase">
+                    <span className="absolute left-4 top-4 bg-[#ff2a55] px-3 py-1 text-xs font-semibold uppercase">
                       {p.tag}
                     </span>
                   )}
@@ -1244,11 +1272,11 @@ export default function Home() {
                     aria-hidden="true"
                   >
                     {i === 2 ? (
-                      <path d="M20 80c0-30 20-50 40-50s40 20 40 50H20zm-6 0h100v10H14z" fill="#fb2e4f" />
+                      <path d="M20 80c0-30 20-50 40-50s40 20 40 50H20zm-6 0h100v10H14z" fill="#2bff88" />
                     ) : i === 3 ? (
-                      <rect x="10" y="30" width="100" height="60" rx="8" fill="#fb2e4f" />
+                      <rect x="10" y="30" width="100" height="60" rx="8" fill="#2bff88" />
                     ) : (
-                      <path d="M40 15 15 35l12 18 10-6v58h46V47l10 6 12-18-25-20c-4 8-12 12-20 12s-16-4-20-12z" fill="#fb2e4f" />
+                      <path d="M40 15 15 35l12 18 10-6v58h46V47l10 6 12-18-25-20c-4 8-12 12-20 12s-16-4-20-12z" fill="#ff2a55" />
                     )}
                   </svg>
                 </div>
@@ -1256,9 +1284,9 @@ export default function Home() {
                   <h3 className="font-[family-name:var(--font-display)] text-lg font-semibold">
                     {p.name}
                   </h3>
-                  <span className="font-semibold text-[#fb2e4f]">{p.price}</span>
+                  <span className="font-semibold text-[#2bff88]">{p.price}</span>
                 </div>
-                <button className="mt-4 w-full border border-white/20 py-3 font-[family-name:var(--font-display)] text-xs font-semibold uppercase tracking-wider transition-colors hover:border-[#fb2e4f] hover:bg-[#fb2e4f]">
+                <button className="mt-4 w-full border border-white/20 py-3 font-[family-name:var(--font-display)] text-xs font-semibold uppercase tracking-wider transition-colors hover:border-[#2bff88] hover:bg-[#2bff88] hover:text-[#04110a]">
                   Add to cart
                 </button>
               </article>
@@ -1279,14 +1307,14 @@ export default function Home() {
               <div
                 className="h-52 transition-opacity group-hover:opacity-90"
                 style={{
-                  background: `linear-gradient(${130 + i * 30}deg, #fb2e4f, #1a0710)`,
+                  background: `linear-gradient(${130 + i * 30}deg, ${i === 1 ? "#2bff88" : "#ff2a55"}, #05080a)`,
                 }}
               />
-              <div className="mt-5 flex gap-4 text-sm text-[#9aa3b8]">
-                <span className="text-[#fb2e4f]">{n.cat}</span>
+              <div className="mt-5 flex gap-4 text-sm text-[#8fa6a1]">
+                <span className="text-[#2bff88]">{n.cat}</span>
                 <span>{n.date}</span>
               </div>
-              <h3 className="mt-2 font-[family-name:var(--font-display)] text-xl font-semibold leading-snug group-hover:text-[#fb2e4f]">
+              <h3 className="mt-2 font-[family-name:var(--font-display)] text-xl font-semibold leading-snug group-hover:text-[#2bff88]">
                 {n.title}
               </h3>
             </article>
@@ -1295,7 +1323,7 @@ export default function Home() {
       </section>
 
       {/* ---------------- NEWSLETTER ---------------- */}
-      <section className="bg-[#fb2e4f]">
+      <section className="bg-[#ff2a55] bg-[repeating-linear-gradient(135deg,transparent_0_18px,rgba(0,0,0,0.1)_18px_36px)]">
         <div className="mx-auto flex max-w-[1320px] flex-col items-start justify-between gap-8 px-6 py-16 lg:flex-row lg:items-center">
           <div>
             <h2 className="font-[family-name:var(--font-display)] text-3xl font-bold uppercase sm:text-4xl">
@@ -1322,11 +1350,11 @@ export default function Home() {
                 required
                 placeholder="Your email"
                 aria-label="Email address"
-                className="h-12 flex-1 bg-white px-4 text-[#0b0f1a] placeholder:text-[#0b0f1a]/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0b0f1a]"
+                className="h-12 flex-1 bg-white px-4 text-[#0a1014] placeholder:text-[#0a1014]/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0a1014]"
               />
               <button
                 type="submit"
-                className="h-12 bg-[#0b0f1a] px-6 font-[family-name:var(--font-display)] text-xs font-semibold uppercase tracking-wider hover:bg-black"
+                className="h-12 bg-[#0a1014] px-6 font-[family-name:var(--font-display)] text-xs font-semibold uppercase tracking-wider hover:bg-black"
               >
                 Subscribe
               </button>
@@ -1336,11 +1364,11 @@ export default function Home() {
       </section>
 
       {/* ---------------- FOOTER ---------------- */}
-      <footer className="border-t border-white/10 bg-[#070a12]">
+      <footer className="border-t border-white/10 bg-[#05080a]">
         <div className="mx-auto grid max-w-[1320px] gap-12 px-6 py-16 md:grid-cols-2 lg:grid-cols-4">
           <div>
             <Logo />
-            <p className="mt-5 max-w-xs text-[#9aa3b8]">
+            <p className="mt-5 max-w-xs text-[#8fa6a1]">
               Professional esports organisation competing in nine titles
               worldwide.
             </p>
@@ -1357,7 +1385,7 @@ export default function Home() {
               <ul className="mt-5 space-y-3">
                 {c.l.map((x) => (
                   <li key={x}>
-                    <a href="#" className="text-[#9aa3b8] hover:text-[#fb2e4f]">
+                    <a href="#" className="text-[#8fa6a1] hover:text-[#2bff88]">
                       {x}
                     </a>
                   </li>
@@ -1366,7 +1394,7 @@ export default function Home() {
             </div>
           ))}
         </div>
-        <div className="border-t border-white/10 py-6 text-center text-sm text-[#9aa3b8]">
+        <div className="border-t border-white/10 py-6 text-center text-sm text-[#8fa6a1]">
           © 2026 Dragon Esports. All rights reserved.
         </div>
       </footer>
